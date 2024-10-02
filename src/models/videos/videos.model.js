@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const dbConnection = require('../db');
+const dbConnection = require('../../db');
 
 const Video = dbConnection.define(
   'Video',
