@@ -1,3 +1,4 @@
+const Video = require('../videos.model');
 const User = require('./users.schema');
 
 // Get all users
@@ -6,7 +7,14 @@ const getAllUsersData = async () => {
 };
 
 const getUserDataById = async (id) => {
-  return await User.findByPk(id);
+  return await User.findByPk(id, { include: [{ model: Video, as: 'videos' }] });
+};
+
+const getUserDataByEmail = async (email) => {
+  return await User.findOne(
+    { where: { email: email } },
+    { include: [{ model: Video, as: 'videos' }] }
+  );
 };
 
 const saveUserData = async (userData) => {
@@ -30,4 +38,5 @@ module.exports = {
   saveUserData,
   updateUserData,
   deleteUserDataById,
+  getUserDataByEmail,
 };
