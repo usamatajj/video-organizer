@@ -16,20 +16,20 @@ const dbConnection = new Sequelize(
 // Test the connection
 dbConnection
   .authenticate()
-  .then(async () => {
+  .then(() => {
     console.log('Connection to PostgreSQL has been established successfully.');
   })
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
-// // Sync the database
-// dbConnection
-//   .sync({ force: true })
-//   .then(() => {
-//     console.log('Database synchronized successfully.');
-//   })
-//   .catch((err) => {
-//     console.error('Error synchronizing the database:', err);
-//   });
+//
+dbConnection
+  .sync()
+  .then((res) => {
+    console.log('Database synchronized successfully.');
+  })
+  .catch((err) => {
+    console.error('Error synchronizing the database:', err);
+  });
 
 module.exports = dbConnection;

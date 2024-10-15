@@ -20,7 +20,6 @@ const getVideoById = async (req, res) => {
     }
     res.json(video);
   } catch (error) {
-    console.log({ error });
     res.status(500).json({ error: 'Internal server error' });
   }
 };
@@ -47,7 +46,6 @@ const updateVideo = async (req, res) => {
     }
     res.json(video);
   } catch (error) {
-    console.log({ error });
     res.status(500).json({ error: 'Internal server error' });
   }
 };
@@ -72,12 +70,10 @@ const addToFavorite = async (req, res) => {
     const userId = parseInt(req.body.userId);
     const videoId = parseInt(req.params.id);
     const user = await User.findByPk(userId);
-    console.log('🚀 ~ addToFavorite ~ user:', user);
     const video = await Video.findByPk(videoId);
     await user.addVideo(video, { through: { selfGranted: true } });
     res.json({ message: 'Video added to favorites' });
   } catch (error) {
-    console.log('🚀 ~ addToFavorite ~ error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };

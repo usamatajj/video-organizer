@@ -1,6 +1,7 @@
 const {
   getUserDataByEmail,
   saveUserData,
+  getUserPasswordByEmail,
 } = require('../../models/users/users.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -30,8 +31,10 @@ const signUpUser = async (req, res) => {
 // Login User
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
+  console.log('🚀 ~ loginUser ~ password:', password);
   try {
-    const user = await getUserDataByEmail(email);
+    const user = await getUserPasswordByEmail(email);
+    console.log('🚀 ~ loginUser ~ user:', user);
     if (!user) {
       return res.status(401).json({ error: 'Authentication failed' });
     }
@@ -44,6 +47,7 @@ const loginUser = async (req, res) => {
     });
     res.status(200).json({ token });
   } catch (error) {
+    console.log('🚀 ~ loginUser ~ error:', error);
     res.status(500).json({ error: 'Login failed' });
   }
 };

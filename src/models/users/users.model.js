@@ -3,18 +3,32 @@ const User = require('./users.schema');
 
 // Get all users
 const getAllUsersData = async () => {
-  return await User.findAll();
+  return await User.findAll({
+    include: {
+      model: Video,
+      as: 'videos',
+      attributes: ['id', 'url', 'description', 'tags'],
+      through: {
+        attributes: ['selfGranted'],
+      },
+      required: false,
+    },
+  });
 };
 
 const getUserDataById = async (id) => {
-  return await User.findByPk(id, { include: [{ model: Video, as: 'videos' }] });
+  return await User.findByPk(id);
+};
+
+const getUserPasswordByEmail = async (email) => {
+  return await User.findOne({
+    where: { email: email },
+    attributes: ['password'],
+  });
 };
 
 const getUserDataByEmail = async (email) => {
-  return await User.findOne(
-    { where: { email: email } },
-    { include: [{ model: Video, as: 'videos' }] }
-  );
+  return await User.findOne({ where: { email: email } });
 };
 
 const saveUserData = async (userData) => {
@@ -39,4 +53,5 @@ module.exports = {
   updateUserData,
   deleteUserDataById,
   getUserDataByEmail,
+  getUserPasswordByEmail,
 };
