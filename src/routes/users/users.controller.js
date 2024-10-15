@@ -3,7 +3,7 @@ const {
   getUserDataById,
   saveUserData,
   updateUserData,
-} = require('../../models/users/users.model');
+} = require('../../models/users/users.service');
 
 // Get all users
 const getAllUsers = async (req, res) => {
@@ -11,6 +11,7 @@ const getAllUsers = async (req, res) => {
     const allUsers = await getAllUsersData();
     res.json(allUsers);
   } catch (error) {
+    console.log('🚀 ~ getAllUsers ~ error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };

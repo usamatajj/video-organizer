@@ -1,5 +1,8 @@
+// models/videos.model.js
 const { DataTypes } = require('sequelize');
 const dbConnection = require('../../db');
+const FavoriteVideos = require('../user-favorites-videos/user-favorite-videos.schema');
+const User = require('../users/users.model');
 
 const Video = dbConnection.define(
   'Video',
@@ -27,13 +30,19 @@ const Video = dbConnection.define(
   }
 );
 
-// Synchronize the model with the database
-Video.sync()
-  .then(() => {
-    console.log('Video table created successfully!');
-  })
-  .catch((error) => {
-    console.error('Error creating Video table:', error);
-  });
+// Define the associations
+User.belongsToMany(Video, {
+  through: FavoriteVideos,
+  as: 'videos',
+  foreignKey: 'userId',
+  otherKey: 'videoId',
+});
+
+Video.belongsToMany(User, {
+  through: FavoriteVideos,
+  as: 'users',
+  foreignKey: 'videoId',
+  otherKey: 'userId',
+});
 
 module.exports = Video;

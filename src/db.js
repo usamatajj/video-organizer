@@ -22,5 +22,14 @@ dbConnection
   .catch((err) => {
     console.error('Unable to connect to the database:', err);
   });
+//
+dbConnection
+  .sync()
+  .then((res) => {
+    console.log('Database synchronized successfully.');
+  })
+  .catch((err) => {
+    console.error('Error synchronizing the database:', err);
+  });
 
 module.exports = dbConnection;

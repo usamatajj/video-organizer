@@ -1,4 +1,6 @@
+const User = require('../../models/users/users.model');
 const VideoService = require('../../models/videos/videos.service');
+const Video = require('../../models/videos/videos.model');
 
 // Get all videos
 const getAllVideos = async (req, res) => {
@@ -61,10 +63,24 @@ const deleteVideo = async (req, res) => {
   }
 };
 
+const addToFavorite = async (req, res) => {
+  try {
+    const userId = parseInt(req.body.userId);
+    const videoId = parseInt(req.params.id);
+    const user = await User.findByPk(userId);
+    const video = await Video.findByPk(videoId);
+    await user.addVideo(video, { through: { selfGranted: true } });
+    res.json({ message: 'Video added to favorites' });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
 module.exports = {
   getAllVideos,
   getVideoById,
   createVideo,
   updateVideo,
   deleteVideo,
+  addToFavorite,
 };

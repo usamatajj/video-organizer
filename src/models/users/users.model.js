@@ -1,33 +1,38 @@
-const User = require('./users.schema');
+// models/users/users.schema.js
+const { DataTypes } = require('sequelize');
+const dbConnection = require('../../db');
 
-// Get all users
-const getAllUsersData = async () => {
-  return await User.findAll();
-};
+const User = dbConnection.define(
+  'User',
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    email: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    interests: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+    },
+  },
+  {
+    defaultScope: {
+      attributes: { exclude: ['password'] },
+    },
+  }
+);
 
-const getUserDataById = async (id) => {
-  return await User.findByPk(id);
-};
-
-const saveUserData = async (userData) => {
-  const user = new User(userData);
-  return await user.save();
-};
-
-const updateUserData = async (userData) => {
-  return await User.update(userData, {
-    where: { id: userData.id },
-  });
-};
-
-const deleteUserDataById = async (id) => {
-  return await User.destroy({ where: { id } });
-};
-
-module.exports = {
-  getAllUsersData,
-  getUserDataById,
-  saveUserData,
-  updateUserData,
-  deleteUserDataById,
-};
+module.exports = User;
