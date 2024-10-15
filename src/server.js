@@ -4,7 +4,7 @@ const cron = require('node-cron');
 
 const { emailVideosToEveryUser } = require('./jobs/videos');
 
-// cron.schedule('* * * * *', emailVideosToEveryUser);
+cron.schedule('* * * * *', emailVideosToEveryUser);
 
 const PORT = process.env.PORT || 8000;
 

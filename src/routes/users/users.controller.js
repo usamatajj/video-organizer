@@ -3,7 +3,7 @@ const {
   getUserDataById,
   saveUserData,
   updateUserData,
-} = require('../../models/users/users.model');
+} = require('../../models/users/users.service');
 
 // Get all users
 const getAllUsers = async (req, res) => {

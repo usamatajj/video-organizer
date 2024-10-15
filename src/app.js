@@ -6,7 +6,7 @@ const usersRouter = require('./routes/users/users.router');
 const videosRouter = require('./routes/videos/videos.router');
 const authRouter = require('./routes/auth/auth.router');
 
-const authMiddleware = require('./middleware/authMiddleware');
+const authMiddleware = require('./middlewares/auth/authMiddleware');
 
 const app = express();
 // Logging

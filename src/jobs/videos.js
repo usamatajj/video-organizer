@@ -1,6 +1,6 @@
 const { emailSuggestedVideos } = require('../mailer');
-const { getAllUsersData } = require('../models/users/users.model');
-const Video = require('../models/videos.model');
+const { getAllUsersData } = require('../models/users/users.service');
+const Video = require('../models/videos/videos.model');
 
 const emailVideosToEveryUser = async () => {
   try {

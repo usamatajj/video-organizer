@@ -2,7 +2,7 @@ const {
   getUserDataByEmail,
   saveUserData,
   getUserPasswordByEmail,
-} = require('../../models/users/users.model');
+} = require('../../models/users/users.service');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { SECRET_KEY } = require('../../constant');

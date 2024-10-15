@@ -1,8 +1,8 @@
 // models/videos.model.js
 const { DataTypes } = require('sequelize');
-const dbConnection = require('../db');
-const FavoriteVideos = require('./user-favorites-videos/user-favorite-videos.schema');
-const User = require('./users/users.schema');
+const dbConnection = require('../../db');
+const FavoriteVideos = require('../user-favorites-videos/user-favorite-videos.schema');
+const User = require('../users/users.model');
 
 const Video = dbConnection.define(
   'Video',

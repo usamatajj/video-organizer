@@ -1,4 +1,5 @@
 const express = require('express');
+const { validateVideos } = require('../../middlewares/videos/validation');
 const {
   getAllVideos,
   getVideoById,
@@ -17,7 +18,7 @@ videosRouter.get('/', getAllVideos);
 videosRouter.get('/:id', getVideoById);
 
 // POST /videos
-videosRouter.post('/', createVideo);
+videosRouter.post('/', validateVideos, createVideo);
 
 // PUT /videos/:id
 videosRouter.put('/:id', updateVideo);
